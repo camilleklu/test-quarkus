@@ -12,6 +12,8 @@ public class Event {
     @Id @GeneratedValue
     public Long id;
     public String name;
+    public String description;
+    public String location;
 
     @OneToMany(mappedBy = "event")
     public List<Session> sessions;

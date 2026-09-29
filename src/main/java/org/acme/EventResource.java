@@ -4,6 +4,8 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.acme.dto.EventDetailDto;
+import org.acme.dto.EventSummaryDto;
 import org.acme.model.Event;
 import org.acme.service.EventService;
 
@@ -19,7 +21,7 @@ public class EventResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Event> listEvent(){
+    public List<EventSummaryDto> listEvent(){
         return eventService.listEvent();
     }
 
@@ -28,7 +30,7 @@ public class EventResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Event getEvent(@PathParam("id") Long id){
+    public EventDetailDto getEvent(@PathParam("id") Long id){
         return eventService.getEvent(id);
     }
 

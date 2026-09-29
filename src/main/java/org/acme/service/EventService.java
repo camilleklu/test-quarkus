@@ -5,6 +5,9 @@ import jakarta.inject.Singleton;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.PathParam;
 
+import org.acme.dto.EventDetailDto;
+import org.acme.dto.EventSummaryDto;
+import org.acme.mapper.EventMapper;
 import org.acme.model.Event;
 import org.acme.repository.EventRepository;
 
@@ -16,13 +19,20 @@ public class EventService {
     @Inject
     EventRepository eventRepository;
 
-    public List<Event> listEvent() {
-        return eventRepository.listAll();
+    @Inject
+    EventMapper eventMapper;
+
+    public List<EventSummaryDto> listEvent() {
+
+        List<Event> events = eventRepository.listAll();
+        return eventMapper.eventToEventSummaryDto(events);
     }
 
 
-    public Event getEvent(@PathParam("id") Long id){
-        return eventRepository.findById(id);
+    public EventDetailDto getEvent(@PathParam("id") Long id){
+
+        Event event =  eventRepository.findById(id);
+        return eventMapper.eventToEventDetailDto(event);
     }
 
     @Transactional
