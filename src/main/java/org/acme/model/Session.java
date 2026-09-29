@@ -14,7 +14,6 @@ public class Session {
     public Instant endAt;
 
     @ManyToOne
-    @JsonIgnore
     public Event event;
 
 

@@ -7,11 +7,13 @@ import jakarta.ws.rs.PathParam;
 
 import org.acme.dto.EventDetailDto;
 import org.acme.dto.EventSummaryDto;
+import org.acme.exception.EventNotFoundException;
 import org.acme.mapper.EventMapper;
 import org.acme.model.Event;
 import org.acme.repository.EventRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class EventService {
@@ -23,15 +25,15 @@ public class EventService {
     EventMapper eventMapper;
 
     public List<EventSummaryDto> listEvent() {
-
         List<Event> events = eventRepository.listAll();
-        return eventMapper.eventToEventSummaryDto(events);
+        return eventMapper.eventsToEventSummaryDtos(events);
     }
 
 
-    public EventDetailDto getEvent(@PathParam("id") Long id){
+    public EventDetailDto getEvent(Long id){
 
-        Event event =  eventRepository.findById(id);
+        Optional<Event> eventOpt = eventRepository.findByIdOptional(id);
+        Event event = eventOpt.orElseThrow(() -> new EventNotFoundException(id));
         return eventMapper.eventToEventDetailDto(event);
     }
 

@@ -14,6 +14,8 @@ public interface EventMapper {
 
     public abstract EventSummaryDto eventToEventSummaryDto(Event event);
 
+    public abstract List<EventSummaryDto> eventsToEventSummaryDtos(List<Event> events);
+
     public abstract EventDetailDto eventToEventDetailDto(Event event);
 
     public abstract  SessionDto sessionToSessionDto(Session session);
