@@ -3,8 +3,8 @@ package org.acme.service;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.PathParam;
 
+import org.acme.dto.CreateEventRequest;
 import org.acme.dto.EventDetailDto;
 import org.acme.dto.EventSummaryDto;
 import org.acme.exception.EventNotFoundException;
@@ -38,8 +38,9 @@ public class EventService {
     }
 
     @Transactional
-    public Event createEvent(Event event){
-        eventRepository.persist(event);
-        return event;
+    public Event createEvent(CreateEventRequest request){
+        Event eventEntity = eventMapper.toEvent(request);
+        eventRepository.persist(eventEntity);
+        return eventEntity;
     }
 }

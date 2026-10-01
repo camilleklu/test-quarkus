@@ -1,9 +1,11 @@
 package org.acme;
 
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.acme.dto.CreateEventRequest;
 import org.acme.dto.EventDetailDto;
 import org.acme.dto.EventSummaryDto;
 import org.acme.model.Event;
@@ -37,7 +39,7 @@ public class EventResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createEvent(Event event){
+    public Response createEvent(@Valid CreateEventRequest event){
         Event createdEvent = eventService.createEvent(event);
         return Response.status(Response.Status.CREATED).entity(createdEvent).build();
     }

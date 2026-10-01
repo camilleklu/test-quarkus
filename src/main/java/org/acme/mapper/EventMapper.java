@@ -1,5 +1,6 @@
 package org.acme.mapper;
 
+import org.acme.dto.CreateEventRequest;
 import org.acme.dto.EventDetailDto;
 import org.acme.dto.EventSummaryDto;
 import org.acme.dto.SessionDto;
@@ -20,4 +21,7 @@ public interface EventMapper {
 
     public abstract  SessionDto sessionToSessionDto(Session session);
 
+    public abstract CreateEventRequest ToCreateEventRequest(Event event);
+
+    public abstract Event toEvent(CreateEventRequest request);
 }
