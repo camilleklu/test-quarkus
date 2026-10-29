@@ -1,12 +1,10 @@
 package org.acme.mapper;
 
-import org.acme.dto.CreateEventRequest;
-import org.acme.dto.EventDetailDto;
-import org.acme.dto.EventSummaryDto;
-import org.acme.dto.SessionDto;
+import org.acme.dto.*;
 import org.acme.model.Event;
 import org.acme.model.Session;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -19,9 +17,14 @@ public interface EventMapper {
 
     public abstract EventDetailDto eventToEventDetailDto(Event event);
 
-    public abstract  SessionDto sessionToSessionDto(Session session);
+    // retourner quelque chose sous la forme d'un dto session
+    public abstract  SessionDto toSessionDto(Session session);
 
     public abstract CreateEventRequest ToCreateEventRequest(Event event);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "event", ignore = true)
+    public abstract Session toSession(CreateSessionRequest request);
 
     public abstract Event toEvent(CreateEventRequest request);
 }

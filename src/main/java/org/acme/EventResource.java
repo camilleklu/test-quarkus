@@ -5,10 +5,9 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.dto.CreateEventRequest;
-import org.acme.dto.EventDetailDto;
-import org.acme.dto.EventSummaryDto;
+import org.acme.dto.*;
 import org.acme.model.Event;
+import org.acme.model.Session;
 import org.acme.service.EventService;
 
 import java.util.List;
@@ -42,6 +41,15 @@ public class EventResource {
     public Response createEvent(@Valid CreateEventRequest event){
         Event createdEvent = eventService.createEvent(event);
         return Response.status(Response.Status.CREATED).entity(createdEvent).build();
+    }
+
+    @POST
+    @Path("/{id}/sessions")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createSession(@PathParam("id") Long eventId, @Valid CreateSessionRequest request){
+        SessionDto createdSession = eventService.createSession(eventId, request);
+        return Response.status(Response.Status.CREATED).entity(createdSession).build();
     }
 
 }
